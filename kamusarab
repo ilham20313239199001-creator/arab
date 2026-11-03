@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kamus Mufradat Audio-Visual</title>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; background-color: #f0f8ff; padding: 20px; }
+        .card { background: white; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; max-width: 300px; padding: 20px; margin-top: 20px; margin-bottom: 20px; }
+        img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; }
+        .arabic { font-size: 2.5rem; font-weight: bold; margin: 15px 0; color: #2c3e50; }
+        .indo { font-size: 1.2rem; color: #7f8c8d; margin-bottom: 20px; }
+        button { background-color: #3498db; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 1rem; margin: 5px; font-weight: bold; }
+        button:hover { background-color: #2980b9; }
+        .nav-btn { background-color: #2ecc71; }
+        .nav-btn:hover { background-color: #27ae60; }
+    </style>
+</head>
+<body>
+
+    <h2>Kamus Mufradat Kelas 7</h2>
+
+    <div class="card">
+        <img id="gambar-mufradat" src="https://images.unsplash.com/photo-1544928147-79a2dbc1f389?w=500&q=80" alt="Ilustrasi Sekolah">
+        <div class="arabic" id="teks-arab">مَدْرَسَةٌ</div>
+        <div class="indo" id="teks-indo">Sekolah</div>
+        <button onclick="ucapkan()">🔊 Dengarkan</button>
+    </div>
+    
+    <div>
+        <button class="nav-btn" onclick="gantiKata(-1)">⬅️ Sebelumnya</button>
+        <button class="nav-btn" onclick="gantiKata(1)">Selanjutnya ➡️</button>
+    </div>
+
+    <script>
+        // Tambahkan kosakata, arti, dan link gambar Anda di bawah ini
+        const dataMufradat = [
+            { arab: "مَدْرَسَةٌ", indo: "Sekolah", gambar: "https://images.unsplash.com/photo-1544928147-79a2dbc1f389?w=500&q=80" },
+            { arab: "كِتَابٌ", indo: "Buku", gambar: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500&q=80" },
+            { arab: "قَلَمٌ", indo: "Pena", gambar: "https://images.unsplash.com/photo-1585336261022-680e295ce3fe?w=500&q=80" }
+        ];
+
+        let indeks = 0;
+
+        function gantiKata(arah) {
+            indeks += arah;
+            // Kembali ke awal jika sudah di akhir, atau sebaliknya
+            if (indeks < 0) indeks = dataMufradat.length - 1;
+            if (indeks >= dataMufradat.length) indeks = 0;
+            
+            document.getElementById("teks-arab").innerText = dataMufradat[indeks].arab;
+            document.getElementById("teks-indo").innerText = dataMufradat[indeks].indo;
+            document.getElementById("gambar-mufradat").src = dataMufradat[indeks].gambar;
+        }
+
+        function ucapkan() {
+            const teks = document.getElementById("teks-arab").innerText;
+            const utterance = new SpeechSynthesisUtterance(teks);
+            utterance.lang = 'ar-SA'; // Menggunakan suara Bahasa Arab
+            window.speechSynthesis.speak(utterance);
+        }
+    </script>
+</body>
+</html>
