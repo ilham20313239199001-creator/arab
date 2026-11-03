@@ -1,0 +1,2 @@
+# arab
+kamus bahasa arab
